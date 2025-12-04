@@ -7,57 +7,34 @@
 
 import Foundation
 
-func task1(input: String) -> Int {
-    let turns = input.split(separator: "\n")
-    print("Count: \(turns.count)")
+func task2(input: String) -> Int {
+    let ranges = input.split(separator: ",")
+    var acc = 0
     
-    var current = 50
-    var counter = 0
-    turns.forEach { turn in
-        let value = Int(turn.dropFirst())! % 100
+    ranges.forEach { range in
+        let edges = range.split(separator: "-")
+        let start = edges[0]
+        let end = edges[1].filter { $0.isNumber }
         
-        if (turn.first == "R") {
-            current += value
-            
-            print("Op: +, value: \(value)")
+        if (start.count == end.count && start.count % 2 == 1) {
+            print("Skiping: \(range)")
         } else {
-            current -= value
-            
-            print("Op: -, value: \(value)")
+            for number in Int(start)!...Int(end)! {
+                let str = String(number)
+
+                if str.count % 2 == 0 {
+                    let midIndex = str.index(str.startIndex, offsetBy: str.count/2)
+                    let firstPart = str[..<midIndex]
+                    let secondPart = str[midIndex...]
+                    
+                    if firstPart == secondPart {
+                        print(str)
+                        acc += number
+                    }
+                }
+            }
         }
-        
-        if (current < 0) {
-            current += 100
-        }
-        
-        if (current > 99) {
-            current -= 100
-        }
-        
-        if (current == 0) {
-            counter += 1
-        }
-        
-        print("Current: \(current)")
-        
-//        readLine()
     }
     
-    return counter
-}
-
-func readFromFile(fileName: String) -> String {
-    // Set the file path
-
-    do {
-        // Get the contents
-        let contents = try String(contentsOfFile: "/Users/skgrechishnikov/Documents/Projects/AdventOfCode/AdventOfCode/" + fileName, encoding: .utf8)
-//        print(contents)
-        return contents
-    }
-    catch let error as NSError {
-        print("Ooops! Something went wrong: \(error)")
-    }
-    
-    return "error"
+    return acc
 }

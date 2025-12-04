@@ -7,5 +7,9 @@
 
 import Foundation
 
-print("Hello, World!")
 
+//let result = task1(input: readFromFile(fileName: "task1/input.txt"))
+
+let result = task2(input: readFromFile(fileName: "task2/input.txt"))
+
+print("Result: \(result)")
