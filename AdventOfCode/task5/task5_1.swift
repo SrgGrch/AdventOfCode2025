@@ -7,7 +7,7 @@
 
 import Foundation
 
-func task5(input: String) -> Int {
+func task5_1(input: String) -> Int {
     let tables = input
         .split(separator: "\n\n")
     
@@ -36,7 +36,7 @@ func task5(input: String) -> Int {
     return acc
 }
 
-struct Range {
+private struct Range {
     let from: Int
     let to: Int
     
